@@ -1,6 +1,6 @@
 {
   "name": "url-mgr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parses URLs (http and https) into a JavaScript object which can be edited and easily exported as a new URL",
   "main": "url-mgr.js",
   "scripts": {
