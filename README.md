@@ -27,7 +27,7 @@ console.log(url.path);          //Prints '/some/path'
 ```
 
 #### port
-Gets or sets the URL's port
+Gets or sets the URL's port  
 *If not included in the URL, the port will default to 80 for HTTP and 443 for HTTPS*
 ```
 console.log(url.port);          //Prints '80'
@@ -58,7 +58,7 @@ console.log(url.url);           //Prints 'http://www.example.com:8080/some/path?
 
 ### Methods
 #### toString()
-Returns the URL string based on current values
+Returns the URL string based on current values  
 *Identical to the **url** property*
 ```
 console.log(url.toString());           //Prints 'http://example.com/some/path?stripes=broad&stars=bright'
