@@ -40,10 +40,20 @@ console.log(url.protocol);      //Prints 'http'
 ```
 
 #### query
-Returns a Query object containing key-value pairs for each querystring variable
+Returns a Query object containing key-value pairs for each query-string variable
 ```
 console.log(url.query.stripes); //Prints 'broad'
 console.log(url.query);         //Prints {"stripes": "broad", "stars": "bright"}
+```
+
+#### queryString
+Gets or sets the query-string
+```
+console.log(url.queryString);   //Prints 'stripes=broad&stars=bright'
+url.queryString = "one=fish&red=blue"
+console.log(url.query);         //Prints {"one": "fish", "red": "blue"}
+console.log(url.queryString);   //Prints 'one=fish&red=blue'
+console.log(url.toString());    //Prints 'http://example.com/some/path?one=fish&red=blue'
 ```
 
 #### url
@@ -56,7 +66,7 @@ url.port = '8080';
 console.log(url.url);           //Prints 'http://www.example.com:8080/some/path?stripes=red%20and%20white&stars=bright'
 url.url = 'http://www.example.net/?good=morning';
 console.log(url.domain);        //Prints 'www.example.net'
-console.log(url.query.good);     //Prints 'morning'
+console.log(url.query.good);    //Prints 'morning'
 ```
 
 ### Methods

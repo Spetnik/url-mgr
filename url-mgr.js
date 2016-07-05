@@ -83,6 +83,10 @@ exports.Url = function(url){
         'query': {
             get: function(){return query;}
         },
+        'queryString': {
+            get: function(){return query.compile();},
+            set: function(value){query = new Query(value)}
+        },
         'url': {
             get: function(){
                 var queryString = query.compile();
@@ -102,6 +106,7 @@ exports.Url = function(url){
             port: port,
             path: path,
             query: query,
+            queryString: query.compile(),
             url: this.url
         };
     };
