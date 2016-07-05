@@ -6,19 +6,22 @@ exports.Url = function(url){
     function Query(query, url){
         var thisQuery = this;
         var queryObject = {};
-        query.split("&").forEach(function(x){
-            if(x == null || x == '')
-                return;
-            var q = x.split('=');
-            queryObject[q[0]] = q[1];
-                        
-            Object.defineProperty(thisQuery, q[0], {
-                get: function(){return queryObject[q[0]];},
-                set: function(value){
-                    queryObject[q[0]] = value;
-                }
+        
+        if(typeof query != "undefined"){
+            query.split("&").forEach(function(x){
+                if(x == null || x == '')
+                    return;
+                var q = x.match(/(.+?)\=(.*)/); //Need to use this instead of .split() in case the value contains an "="
+                queryObject[q[1]] = q[2];
+
+                Object.defineProperty(thisQuery, q[1], {
+                    get: function(){return queryObject[q[1]];},
+                    set: function(value){
+                        queryObject[q[1]] = value;
+                    }
+                });
             });
-        });
+        }
         
         Object.defineProperty(thisQuery, 'compile', {
             value: function(){
@@ -45,12 +48,20 @@ exports.Url = function(url){
         'https': '443'
     };
     
-    var matches = url.match(matcher);
-    var protocol = matches[2];
-    var domain = matches[3];
-    var port = typeof matches[5] == "undefined" ? (defPorts[protocol]) : matches[5];
-    var path = matches[6];
-    var query = new Query(matches[8]);
+    var protocol;
+    var domain;
+    var port;
+    var path;
+    var query;
+    
+    var parse = function(url){
+        var matches = url.match(matcher);
+        protocol = matches[2];
+        domain = matches[3];
+        port = typeof matches[5] == "undefined" ? (defPorts[protocol]) : matches[5];
+        path = typeof matches[6] == "undefined" ? "/" : matches[6];
+        query = new Query(matches[8]);
+    };
         
     Object.defineProperties(this, {
         'protocol': {
@@ -75,7 +86,11 @@ exports.Url = function(url){
         'url': {
             get: function(){
                 var queryString = query.compile();
-                return protocol + "://" + domain + (port == defPorts[protocol] ? '' : ":" + port) + path + (queryString.length >= 0 ? "?" + queryString : "");
+                return protocol + "://" + domain + (port == defPorts[protocol] ? '' : ":" + port) + path + (queryString.length > 0 ? "?" + queryString : "");
+            },
+            set: function(value){
+                console.log("AAA" + value);
+                parse(value);
             }
         }        
     });
@@ -90,5 +105,7 @@ exports.Url = function(url){
             url: this.url
         };
     };
+    
+    parse(url);
 }
 exports.Url.prototype.toString = function(){return this.url;};

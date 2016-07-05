@@ -46,20 +46,22 @@ console.log(url.query.stripes); //Prints 'broad'
 console.log(url.query);         //Prints {"stripes": "broad", "stars": "bright"}
 ```
 
-#### url (read-only)
-Returns the URL string based on current values
+#### url
+Gets the URL string based on current values or sets the URL to a new URL
 ```
 console.log(url.url);           //Prints 'http://example.com/some/path?stripes=broad&stars=bright'
 url.domain = 'www.example.com';
 url.query.stripes = 'red%20and%20white';
 url.port = '8080';
 console.log(url.url);           //Prints 'http://www.example.com:8080/some/path?stripes=red%20and%20white&stars=bright'
+url.url = 'http://www.example.net/?good=morning';
+console.log(url.domain);        //Prints 'www.example.net'
+console.log(url.query.good);     //Prints 'morning'
 ```
 
 ### Methods
 #### toString()
 Returns the URL string based on current values  
-*Identical to the **url** property*
 ```
 console.log(url.toString());           //Prints 'http://example.com/some/path?stripes=broad&stars=bright'
 url.domain = 'www.example.com';
