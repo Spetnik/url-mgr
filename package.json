@@ -1,6 +1,6 @@
 {
   "name": "url-mgr",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Parses URLs (http and https) into a JavaScript object which can be edited and easily exported as a new URL",
   "main": "url-mgr.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "url-mgr"
+    "url": "https://github.com/Spetnik/url-mgr.git"
   },
   "keywords": [
     "url",
@@ -25,5 +25,6 @@
     "uri"
   ],
   "author": "Aaron J Spetner",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": "https://github.com/Spetnik/url-mgr/issues"
 }
