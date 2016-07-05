@@ -18,29 +18,34 @@ exports.Url = function(url){
                     get: function(){return queryObject[q[1]];},
                     set: function(value){
                         queryObject[q[1]] = value;
-                    }
+                    },
+                    enumerable: true
                 });
             });
         }
         
-        Object.defineProperty(thisQuery, 'compile', {
-            value: function(){
-                var a = [];
-                for(q in queryObject){
-                    a.push(q + "=" + (queryObject[q] || ""));
-                }
-                return a.join("&");
+        Object.defineProperties(thisQuery, {
+            'compile': {
+                value: function(){
+                    var a = [];
+                    for(q in queryObject){
+                        a.push(q + "=" + (queryObject[q] || ""));
+                    }
+                    return a.join("&");
+                },
+                writable: false
             },
-            writable: false
-        });
-        
-        this.constructor.prototype.inspect = function(depth, opts){
-            var o = Object.assign({}, queryObject);
-            for(i in o){
-                o[i] = decodeURIComponent(o[i]);
+            'inspect': {
+                value: function(depth, opts){
+                    var o = Object.assign({}, queryObject);
+                    for(i in o){
+                        o[i] = decodeURIComponent(o[i]);
+                    }
+                    return o;
+                },
+                writable: false
             }
-            return o;
-        };
+        });
     }
     
     var defPorts = {
@@ -66,26 +71,31 @@ exports.Url = function(url){
     Object.defineProperties(this, {
         'protocol': {
             get: function(){return protocol;},
-            set: function(value){protocol = value;}            
+            set: function(value){protocol = value;},
+            enumerable: true
         },
         'domain': {
             get: function(){return domain;},
-            set: function(value){domain = value;}            
+            set: function(value){domain = value;},
+            enumerable: true
         },
         'port': {
             get: function(){return port;},
-            set: function(value){port = value;}            
+            set: function(value){port = value;},
+            enumerable: true
         },
         'path': {
             get: function(){return path;},
-            set: function(value){path = value;}            
+            set: function(value){path = value;},
+            enumerable: true
         },
         'query': {
             get: function(){return query;}
         },
         'queryString': {
             get: function(){return query.compile();},
-            set: function(value){query = new Query(value)}
+            set: function(value){query = new Query(value)},
+            enumerable: true
         },
         'url': {
             get: function(){
@@ -95,22 +105,28 @@ exports.Url = function(url){
             set: function(value){
                 console.log("AAA" + value);
                 parse(value);
-            }
-        }        
+            },
+            enumerable: true
+        },
+        'inspect': {
+            value: function(depth, opts){
+                return {
+                    protocol: protocol,
+                    domain: domain,
+                    port: port,
+                    path: path,
+                    query: query,
+                    queryString: query.compile(),
+                    url: this.url
+                };
+            },
+            writable: false
+        },
+        'toString': {
+            value: function(){return this.url;},
+            writable: false
+        }
     });
     
-    this.constructor.prototype.inspect = function(depth, opts){
-        return {
-            protocol: protocol,
-            domain: domain,
-            port: port,
-            path: path,
-            query: query,
-            queryString: query.compile(),
-            url: this.url
-        };
-    };
-    
     parse(url);
-}
-exports.Url.prototype.toString = function(){return this.url;};
+};
