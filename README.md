@@ -45,7 +45,7 @@ Returns a Query object containing key-value pairs for each query-string variable
 console.log(url.query.stripes); //Prints 'broad'
 console.log(url.query);         //Prints {"stripes": "broad", "stars": "bright"}
 ```
-You can also enumerate the Query's key-value pairs using a for...in loop
+You can also enumerate the Query's key-value pairs using a for...in loop:
 ```
 for(key in url.query){
    console.log(key + ': ' + url.query[key]);
