@@ -103,7 +103,6 @@ exports.Url = function(url){
                 return protocol + "://" + domain + (port == defPorts[protocol] ? '' : ":" + port) + path + (queryString.length > 0 ? "?" + queryString : "");
             },
             set: function(value){
-                console.log("AAA" + value);
                 parse(value);
             },
             enumerable: true
