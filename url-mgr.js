@@ -109,7 +109,7 @@ exports.Url = function(url){
 		},
 		'url': {
 			get: function(){
-				let queryString = query.compile();
+				let queryString = stringifyQuery(queryObject);
 				return protocol + '://' + domain + (port === defPorts[protocol] ? '' : ':' + port) + path + (queryString.length > 0 ? '?' + queryString : '');
 			},
 			set: function(value){
@@ -125,7 +125,7 @@ exports.Url = function(url){
 					port: port,
 					path: path,
 					query: query,
-					queryString: query.compile(),
+					queryString: stringifyQuery(queryObject),
 					url: this.url
 				};
 			},
