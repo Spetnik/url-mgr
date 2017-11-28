@@ -2,7 +2,13 @@ const matcher = /^(([a-zA-Z-]+):\/*?)([a-zA-Z.@-]+)(:([0-9]{2,}))?(\/?[a-zA-Z0-9
 
 exports.Url = function(url){
 
+	let protocol, domain, port, path, query;
 	const queryObject = {};
+	const defPorts = {
+		'http': '80',
+		'https': '443'
+	};
+
 	const queryProxy = new Proxy(queryObject, {
 		get: (target, key) => {
 			return target[key];
@@ -62,13 +68,6 @@ exports.Url = function(url){
 		}
 		return a.join('&');
 	};
-    
-	const defPorts = {
-		'http': '80',
-		'https': '443'
-	};
-    
-	let protocol, domain, port, path, query;
     
 	const parse = function(url){
 		let matches = url.match(matcher);
